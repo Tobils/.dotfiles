@@ -1,9 +1,8 @@
 return {
   {
-    "neovim/nvim-lspconfig",
-    ft = { "go" },
+    "nvimtools/none-ls.nvim",
+    ft = "go",
     config = function()
-      -- Autoformat Go on Save
       vim.api.nvim_create_autocmd("BufWritePre", {
         pattern = "*.go",
         callback = function()
