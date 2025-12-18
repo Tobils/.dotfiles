@@ -1,45 +1,7 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
-
--- Open floating terminal
-local term_buf = nil
-local term_win = nil
-
-vim.keymap.set("n", "<leader>t", function()
-  -- If terminal window is open → close it (hide only)
-  if term_win and vim.api.nvim_win_is_valid(term_win) then
-    vim.api.nvim_win_close(term_win, true)
-    term_win = nil
-    return
-  end
-
-  -- If terminal buffer does NOT exist → create it ONCE
-  if not term_buf or not vim.api.nvim_buf_is_valid(term_buf) then
-    term_buf = vim.api.nvim_create_buf(false, true)
-    vim.api.nvim_buf_call(term_buf, function()
-      vim.cmd("terminal")
-    end)
-  end
-
-  -- Open the floating window using EXISTING buffer
-  local width = math.floor(vim.o.columns * 0.8)
-  local height = math.floor(vim.o.lines * 0.8)
-  local row = math.floor((vim.o.lines - height) / 2)
-  local col = math.floor((vim.o.columns - width) / 2)
-
-  term_win = vim.api.nvim_open_win(term_buf, true, {
-    relative = "editor",
-    width = width,
-    height = height,
-    row = row,
-    col = col,
-    style = "minimal",
-    border = "rounded",
-  })
-
-  vim.cmd("startinsert")
-end, { desc = "Toggle Floating Terminal" })
+vim.keymap.del("n", "<leader>fg")
 
 -- OpenCode keymaps
 vim.keymap.set("n", "<leader>oc", function()
@@ -104,3 +66,19 @@ end, { desc = "Debug Go Test" })
 vim.keymap.set("n", "<leader>dT", function()
   require("dap-go").debug_last_test()
 end, { desc = "Debug Last Go Test" })
+
+vim.keymap.set("n", "<leader>gf", function()
+  require("fzf-lua").git_files()
+end, { desc = "Git Files" })
+
+-- <leader>gf → Git Files (fzf-lua)
+vim.keymap.set("n", "<leader>gf", function()
+  require("fzf-lua").git_files()
+end, { desc = "Git Files" })
+
+-- telescope
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
+vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
