@@ -1,5 +1,8 @@
 return {
   "nvim-tree/nvim-tree.lua",
+  keys = {
+    { "<leader>o", false }, -- disable default <leader>o
+  },
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
@@ -21,3 +24,4 @@ return {
     })
   end,
 }
+
