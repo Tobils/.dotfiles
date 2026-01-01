@@ -1,13 +1,15 @@
 return {
-  -- Syntax support for Django HTML templates
   {
-    "vuki656/package-info.nvim",
-    ft = { "html", "htmldjango", "djangohtml", "jinja", "jinja2" },
-  },
-
-  -- Better HTML / Django template highlighting
-  {
-    "lepture/vim-jinja",
-    ft = { "html", "htmldjango", "djangohtml", "jinja", "jinja2" },
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      default_file_explorer = true,
+      view_options = {
+        show_hidden = true,
+      },
+    },
+    keys = {
+      { "-", "<cmd>Oil<CR>", desc = "Open parent directory" },
+    },
   },
 }
