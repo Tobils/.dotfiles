@@ -3,6 +3,32 @@ return {
   {
     "goolord/alpha-nvim",
     event = "VimEnter",
+
+    -- =========================
+    -- STARTUP LOGIC
+    -- =========================
+    init = function()
+      local args = vim.fn.argv()
+      local is_dir = #args == 1 and vim.fn.isdirectory(args[1]) == 1
+
+      if #args == 0 or is_dir then
+        vim.defer_fn(function()
+          local session_dir = vim.fn.stdpath("state") .. "/sessions"
+          local has_session = false
+
+          if vim.fn.isdirectory(session_dir) == 1 then
+            local files = vim.fn.glob(session_dir .. "/*", false, true)
+            has_session = #files > 0
+          end
+
+          if has_session then
+            require("persistence").load()
+          else
+            require("alpha").start()
+          end
+        end, 0)
+      end
+    end,
     opts = function()
       local dashboard = require("alpha.themes.dashboard")
 
