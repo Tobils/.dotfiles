@@ -6,12 +6,17 @@ return {
       "roobert/tailwindcss-colorizer-cmp.nvim",
     },
     opts = function(_, opts)
-      -- emoji
+      -- 🔒 SAFETY GUARD (WAJIB)
+      opts.sources = opts.sources or {}
+      opts.formatting = opts.formatting or {}
+
+      -- emoji source
       table.insert(opts.sources, { name = "emoji" })
 
       -- tailwind color preview
-      opts.formatting = opts.formatting or {}
-      opts.formatting.format = require("tailwindcss-colorizer-cmp").formatter
+      opts.formatting.format =
+        require("tailwindcss-colorizer-cmp").formatter
     end,
   },
 }
+
