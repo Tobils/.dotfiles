@@ -1,7 +1,6 @@
 return {
   {
     "neovim/nvim-lspconfig",
-
     dependencies = {
       "jose-elias-alvarez/typescript.nvim",
     },
@@ -9,14 +8,36 @@ return {
     opts = {
       servers = {
 
-        -- Disable basedpyright completely
+        -- Disable basedpyright
         basedpyright = false,
 
-        -- Enable Pyright
+        -- Python
         pyright = {},
 
-        -- TypeScript
-        tsserver = {},
+        -- TypeScript / React / Next.js
+        ts_ls = {},
+
+        -- Tailwind CSS
+        tailwindcss = {
+          filetypes = {
+            "html",
+            "css",
+            "scss",
+            "javascript",
+            "typescript",
+            "javascriptreact",
+            "typescriptreact",
+          },
+          init_options = {
+            userLanguages = {
+              typescript = "javascript",
+              typescriptreact = "javascript",
+            },
+          },
+        },
+
+        -- ESLint (recommended)
+        eslint = {},
 
         -- Go
         gopls = {
@@ -35,11 +56,20 @@ return {
         },
       },
 
-      -- Setup override
       setup = {
-        tsserver = function(_, opts)
-          require("typescript").setup({ server = opts })
+        -- TypeScript override
+        ts_ls = function(_, opts)
+          require("typescript").setup({
+            server = opts,
+          })
           return true
+        end,
+
+        -- ESLint auto-fix on save
+        eslint = function()
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            command = "EslintFixAll",
+          })
         end,
       },
     },
