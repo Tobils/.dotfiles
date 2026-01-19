@@ -13,3 +13,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     vim.lsp.buf.format({ async = false })
   end,
 })
+
+-- Auto cd to project root
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    local dir = vim.fn.expand("%:p:h")
+    if dir:match("/Users/tobil/Documents") then
+      vim.cmd("lcd " .. dir)
+    end
+  end,
+})

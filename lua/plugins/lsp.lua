@@ -17,6 +17,9 @@ return {
         -- TypeScript / React / Next.js
         ts_ls = {},
 
+        -- prisma
+        prismals = {},
+
         -- Tailwind CSS
         tailwindcss = {
           filetypes = {
@@ -27,11 +30,13 @@ return {
             "typescript",
             "javascriptreact",
             "typescriptreact",
+            "liquid",
           },
           init_options = {
             userLanguages = {
               typescript = "javascript",
               typescriptreact = "javascript",
+              liquid = "html",
             },
           },
         },

@@ -22,6 +22,8 @@ return {
       "gomod",
       "gowork",
       "gosum",
+      "liquid",
+      "prisma",
     },
     highlight = {
       enable = true,

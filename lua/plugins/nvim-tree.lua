@@ -21,6 +21,10 @@ return {
         dotfiles = false, -- show hidden files by default
         custom = {},
       },
+      update_focused_file = {
+        enable = true,
+        update_root = true,
+      },
     })
   end,
 }

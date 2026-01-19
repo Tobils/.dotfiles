@@ -6,6 +6,8 @@ return {
       "shellcheck",
       "shfmt",
       "flake8",
+      "prisma-language-server",
     },
   },
 }
+
